@@ -1,6 +1,7 @@
 using LojaCamisasGames.Application.DTOs;
 using LojaCamisasGames.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace LojaCamisasGames.Web.Controllers
 {
@@ -22,14 +23,14 @@ namespace LojaCamisasGames.Web.Controllers
         {
             try
             {
-                var camisas = await _camisaGameService.ObterTodasCamisasAsync();
+                var camisas = await _camisaGameService.GetAllAsync();
                 return View(camisas);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao listar camisas");
                 TempData["ErrorMessage"] = "Erro ao carregar a lista de camisas.";
-                return View(new List<CamisaGameDTO>());
+                return View(new List<CamisaGameDto>());
             }
         }
 
@@ -38,16 +39,18 @@ namespace LojaCamisasGames.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "ID não informado.";
+                return RedirectToAction(nameof(Index));
             }
 
             try
             {
-                var camisa = await _camisaGameService.ObterCamisaPorIdAsync(id.Value);
+                var camisa = await _camisaGameService.GetByIdAsync(id.Value);
                 
                 if (camisa == null)
                 {
-                    return NotFound();
+                    TempData["ErrorMessage"] = "Camisa não encontrada.";
+                    return RedirectToAction(nameof(Index));
                 }
 
                 return View(camisa);
@@ -63,19 +66,20 @@ namespace LojaCamisasGames.Web.Controllers
         // GET: CamisasGames/Create
         public IActionResult Create()
         {
+            ViewBag.Tamanhos = ObterTamanhos();
             return View();
         }
 
         // POST: CamisasGames/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CamisaGameDTO camisaDto)
+        public async Task<IActionResult> Create(CamisaGameCreateDto camisaDto)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _camisaGameService.AdicionarCamisaAsync(camisaDto);
+                    await _camisaGameService.CreateAsync(camisaDto);
                     TempData["SuccessMessage"] = "Camisa cadastrada com sucesso!";
                     return RedirectToAction(nameof(Index));
                 }
@@ -86,6 +90,7 @@ namespace LojaCamisasGames.Web.Controllers
                 }
             }
 
+            ViewBag.Tamanhos = ObterTamanhos();
             return View(camisaDto);
         }
 
@@ -94,19 +99,35 @@ namespace LojaCamisasGames.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "ID não informado.";
+                return RedirectToAction(nameof(Index));
             }
 
             try
             {
-                var camisa = await _camisaGameService.ObterCamisaPorIdAsync(id.Value);
+                var camisa = await _camisaGameService.GetByIdAsync(id.Value);
                 
                 if (camisa == null)
                 {
-                    return NotFound();
+                    TempData["ErrorMessage"] = "Camisa não encontrada.";
+                    return RedirectToAction(nameof(Index));
                 }
 
-                return View(camisa);
+                var updateDto = new CamisaGameUpdateDto
+                {
+                    Id = camisa.Id,
+                    Nome = camisa.Nome,
+                    NomeTime = camisa.NomeTime,
+                    Jogo = camisa.Jogo,
+                    Tamanho = camisa.Tamanho,
+                    Cor = camisa.Cor,
+                    Preco = camisa.Preco,
+                    QuantidadeEstoque = camisa.QuantidadeEstoque,
+                    Disponivel = camisa.Disponivel
+                };
+
+                ViewBag.Tamanhos = ObterTamanhos();
+                return View(updateDto);
             }
             catch (Exception ex)
             {
@@ -119,25 +140,27 @@ namespace LojaCamisasGames.Web.Controllers
         // POST: CamisasGames/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, CamisaGameDTO camisaDto)
+        public async Task<IActionResult> Edit(int id, CamisaGameUpdateDto camisaDto)
         {
             if (id != camisaDto.Id)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "ID inválido.";
+                return RedirectToAction(nameof(Index));
             }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _camisaGameService.AtualizarCamisaAsync(camisaDto);
+                    await _camisaGameService.UpdateAsync(camisaDto);
                     TempData["SuccessMessage"] = "Camisa atualizada com sucesso!";
                     return RedirectToAction(nameof(Index));
                 }
                 catch (InvalidOperationException ex)
                 {
                     _logger.LogWarning(ex, "Camisa não encontrada para atualização {Id}", id);
-                    return NotFound();
+                    TempData["ErrorMessage"] = "Camisa não encontrada.";
+                    return RedirectToAction(nameof(Index));
                 }
                 catch (Exception ex)
                 {
@@ -146,6 +169,7 @@ namespace LojaCamisasGames.Web.Controllers
                 }
             }
 
+            ViewBag.Tamanhos = ObterTamanhos();
             return View(camisaDto);
         }
 
@@ -154,16 +178,18 @@ namespace LojaCamisasGames.Web.Controllers
         {
             if (id == null)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = "ID não informado.";
+                return RedirectToAction(nameof(Index));
             }
 
             try
             {
-                var camisa = await _camisaGameService.ObterCamisaPorIdAsync(id.Value);
+                var camisa = await _camisaGameService.GetByIdAsync(id.Value);
                 
                 if (camisa == null)
                 {
-                    return NotFound();
+                    TempData["ErrorMessage"] = "Camisa não encontrada.";
+                    return RedirectToAction(nameof(Index));
                 }
 
                 return View(camisa);
@@ -183,14 +209,18 @@ namespace LojaCamisasGames.Web.Controllers
         {
             try
             {
-                await _camisaGameService.RemoverCamisaAsync(id);
-                TempData["SuccessMessage"] = "Camisa removida com sucesso!";
+                var sucesso = await _camisaGameService.DeleteAsync(id);
+                
+                if (sucesso)
+                {
+                    TempData["SuccessMessage"] = "Camisa removida com sucesso!";
+                }
+                else
+                {
+                    TempData["ErrorMessage"] = "Camisa não encontrada.";
+                }
+                
                 return RedirectToAction(nameof(Index));
-            }
-            catch (InvalidOperationException ex)
-            {
-                _logger.LogWarning(ex, "Camisa não encontrada para exclusão {Id}", id);
-                return NotFound();
             }
             catch (Exception ex)
             {
@@ -198,6 +228,12 @@ namespace LojaCamisasGames.Web.Controllers
                 TempData["ErrorMessage"] = "Erro ao remover a camisa. Tente novamente.";
                 return RedirectToAction(nameof(Index));
             }
+        }
+
+        private SelectList ObterTamanhos()
+        {
+            var tamanhos = new List<string> { "PP", "P", "M", "G", "GG", "XG" };
+            return new SelectList(tamanhos);
         }
     }
 }

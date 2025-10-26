@@ -1,0 +1,102 @@
+@model LojaCamisasGames.Application.DTOs.CamisaGameUpdateDto
+
+@{
+    ViewData["Title"] = "Editar Camisa";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white">
+                    <h2 class="mb-0"><i class="bi bi-pencil-square"></i> Editar Camisa</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Edit" method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="row">
+                            <div class="col-md-12 mb-3">
+                                <label asp-for="Nome" class="form-label fw-bold"></label>
+                                <input asp-for="Nome" class="form-control form-control-lg" />
+                                <span asp-validation-for="Nome" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="NomeTime" class="form-label fw-bold"></label>
+                                <input asp-for="NomeTime" class="form-control" />
+                                <span asp-validation-for="NomeTime" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="Jogo" class="form-label fw-bold"></label>
+                                <input asp-for="Jogo" class="form-control" />
+                                <span asp-validation-for="Jogo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Tamanho" class="form-label fw-bold"></label>
+                                <select asp-for="Tamanho" asp-items="ViewBag.Tamanhos" class="form-select">
+                                </select>
+                                <span asp-validation-for="Tamanho" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Cor" class="form-label fw-bold"></label>
+                                <input asp-for="Cor" class="form-control" />
+                                <span asp-validation-for="Cor" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-4 mb-3">
+                                <label asp-for="Preco" class="form-label fw-bold"></label>
+                                <input asp-for="Preco" class="form-control" />
+                                <span asp-validation-for="Preco" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="QuantidadeEstoque" class="form-label fw-bold"></label>
+                                <input asp-for="QuantidadeEstoque" class="form-control" type="number" min="0" />
+                                <span asp-validation-for="QuantidadeEstoque" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-md-6 mb-3 d-flex align-items-end">
+                                <div class="form-check form-switch">
+                                    <input asp-for="Disponivel" class="form-check-input" type="checkbox" role="switch" style="width: 3em; height: 1.5em;" />
+                                    <label asp-for="Disponivel" class="form-check-label fw-bold ms-2"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr class="my-4" />
+
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                            <a asp-action="Index" class="btn btn-secondary btn-lg">
+                                <i class="bi bi-x-circle"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-warning btn-lg text-white">
+                                <i class="bi bi-save"></i> Atualizar Camisa
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<style>
+    .bg-gradient {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+</style>

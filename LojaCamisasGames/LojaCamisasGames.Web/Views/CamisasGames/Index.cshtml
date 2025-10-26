@@ -1,0 +1,117 @@
+@model IEnumerable<LojaCamisasGames.Application.DTOs.CamisaGameDto>
+
+@{
+    ViewData["Title"] = "Camisas de E-Sports";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="display-4 text-gradient">🎮 Camisas de E-Sports</h1>
+        <a asp-action="Create" class="btn btn-success btn-lg shadow-sm">
+            <i class="bi bi-plus-circle"></i> Cadastrar Nova Camisa
+        </a>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @if (Model.Any())
+    {
+        <div class="table-responsive shadow-sm">
+            <table class="table table-hover table-striped align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Time</th>
+                        <th>Jogo</th>
+                        <th>Tamanho</th>
+                        <th>Cor</th>
+                        <th>Preço</th>
+                        <th>Estoque</th>
+                        <th>Status</th>
+                        <th class="text-center">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="fw-bold">@item.Nome</td>
+                            <td>@item.NomeTime</td>
+                            <td><span class="badge bg-primary">@item.Jogo</span></td>
+                            <td><span class="badge bg-secondary">@item.Tamanho</span></td>
+                            <td>@item.Cor</td>
+                            <td class="text-success fw-bold">@item.Preco.ToString("C")</td>
+                            <td>
+                                @if (item.QuantidadeEstoque > 10)
+                                {
+                                    <span class="badge bg-success">@item.QuantidadeEstoque un.</span>
+                                }
+                                else if (item.QuantidadeEstoque > 0)
+                                {
+                                    <span class="badge bg-warning text-dark">@item.QuantidadeEstoque un.</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Esgotado</span>
+                                }
+                            </td>
+                            <td>
+                                @if (item.Disponivel)
+                                {
+                                    <span class="badge bg-success">Disponível</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-danger">Indisponível</span>
+                                }
+                            </td>
+                            <td class="text-center">
+                                <div class="btn-group" role="group">
+                                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm" title="Ver Detalhes">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" title="Excluir">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-info text-center" role="alert">
+            <h4><i class="bi bi-info-circle"></i> Nenhuma camisa cadastrada</h4>
+            <p class="mb-0">Clique em "Cadastrar Nova Camisa" para adicionar produtos ao catálogo.</p>
+        </div>
+    }
+</div>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(45deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+    }
+</style>

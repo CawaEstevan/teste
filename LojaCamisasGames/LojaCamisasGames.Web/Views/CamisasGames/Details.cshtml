@@ -1,0 +1,89 @@
+@model LojaCamisasGames.Application.DTOs.CamisaGameDto
+
+@{
+    ViewData["Title"] = "Detalhes da Camisa";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-gradient text-white">
+                    <h2 class="mb-0"><i class="bi bi-info-circle"></i> Detalhes da Camisa</h2>
+                </div>
+                <div class="card-body">
+                    <dl class="row">
+                        <dt class="col-sm-4 text-end fw-bold">Nome:</dt>
+                        <dd class="col-sm-8">@Model.Nome</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Time:</dt>
+                        <dd class="col-sm-8">@Model.NomeTime</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Jogo:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-primary">@Model.Jogo</span></dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Tamanho:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary">@Model.Tamanho</span></dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Cor:</dt>
+                        <dd class="col-sm-8">@Model.Cor</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Preço:</dt>
+                        <dd class="col-sm-8 text-success fs-4 fw-bold">@Model.Preco.ToString("C")</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Estoque:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.QuantidadeEstoque > 10)
+                            {
+                                <span class="badge bg-success fs-6">@Model.QuantidadeEstoque unidades</span>
+                            }
+                            else if (Model.QuantidadeEstoque > 0)
+                            {
+                                <span class="badge bg-warning text-dark fs-6">@Model.QuantidadeEstoque unidades</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger fs-6">Esgotado</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Status:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Disponivel)
+                            {
+                                <span class="badge bg-success fs-6">Disponível para Venda</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger fs-6">Indisponível</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Cadastrado em:</dt>
+                        <dd class="col-sm-8">@Model.DataCadastro.ToString("dd/MM/yyyy HH:mm")</dd>
+                    </dl>
+
+                    <hr class="my-4" />
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary btn-lg">
+                            <i class="bi bi-arrow-left"></i> Voltar
+                        </a>
+                        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning btn-lg text-white">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger btn-lg">
+                            <i class="bi bi-trash"></i> Excluir
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .bg-gradient {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    }
+</style>

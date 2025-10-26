@@ -1,0 +1,9 @@
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.csproj.AssemblyReference.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.AssemblyInfoInputs.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.AssemblyInfo.cs
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.csproj.CoreCompileInputs.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.MvcApplicationPartsAssemblyInfo.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.RazorAssemblyInfo.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.RazorAssemblyInfo.cs
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Web/obj/Debug/net8.0/LojaCamisasGames.Web.sourcelink.json

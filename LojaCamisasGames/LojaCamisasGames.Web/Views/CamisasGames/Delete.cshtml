@@ -1,0 +1,82 @@
+@model LojaCamisasGames.Application.DTOs.CamisaGameDto
+
+@{
+    ViewData["Title"] = "Excluir Camisa";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h2 class="mb-0"><i class="bi bi-exclamation-triangle"></i> Confirmar Exclusão</h2>
+                </div>
+                <div class="card-body">
+                    <div class="alert alert-warning" role="alert">
+                        <h4 class="alert-heading"><i class="bi bi-exclamation-circle"></i> Atenção!</h4>
+                        <p>Você está prestes a excluir permanentemente a camisa abaixo. Esta ação não pode ser desfeita.</p>
+                    </div>
+
+                    <h3 class="mb-4">Dados da Camisa:</h3>
+
+                    <dl class="row">
+                        <dt class="col-sm-4 text-end fw-bold">Nome:</dt>
+                        <dd class="col-sm-8">@Model.Nome</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Time:</dt>
+                        <dd class="col-sm-8">@Model.NomeTime</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Jogo:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-primary">@Model.Jogo</span></dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Tamanho:</dt>
+                        <dd class="col-sm-8"><span class="badge bg-secondary">@Model.Tamanho</span></dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Preço:</dt>
+                        <dd class="col-sm-8 text-success fw-bold">@Model.Preco.ToString("C")</dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Estoque:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Estoque > 10)
+                            {
+                                <span class="badge bg-success">@Model.Estoque unidades</span>
+                            }
+                            else if (Model.Estoque > 0)
+                            {
+                                <span class="badge bg-warning text-dark">@Model.Estoque unidades</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">Sem estoque</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4 text-end fw-bold">Disponível:</dt>
+                        <dd class="col-sm-8">
+                            @if (Model.Disponivel)
+                            {
+                                <span class="badge bg-success"><i class="bi bi-check-circle"></i> Sim</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger"><i class="bi bi-x-circle"></i> Não</span>
+                            }
+                        </dd>
+                    </dl>
+
+                    <form asp-action="DeleteConfirmed" method="post" class="mt-4">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="bi bi-arrow-left"></i> Cancelar
+                            </a>
+                            <button type="submit" class="btn btn-danger">
+                                <i class="bi bi-trash"></i> Confirmar Exclusão
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

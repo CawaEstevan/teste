@@ -1,0 +1,39 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "LojaCamisasGames.Application/1.0.0": {
+        "dependencies": {
+          "LojaCamisasGames.Domain": "1.0.0"
+        },
+        "runtime": {
+          "LojaCamisasGames.Application.dll": {}
+        }
+      },
+      "LojaCamisasGames.Domain/1.0.0": {
+        "runtime": {
+          "LojaCamisasGames.Domain.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LojaCamisasGames.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LojaCamisasGames.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

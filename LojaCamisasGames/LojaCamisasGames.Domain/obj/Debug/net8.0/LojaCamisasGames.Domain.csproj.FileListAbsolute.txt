@@ -1,0 +1,12 @@
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/bin/Debug/net8.0/LojaCamisasGames.Domain.deps.json
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/bin/Debug/net8.0/LojaCamisasGames.Domain.dll
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/bin/Debug/net8.0/LojaCamisasGames.Domain.pdb
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.AssemblyInfoInputs.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.AssemblyInfo.cs
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.csproj.CoreCompileInputs.cache
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.sourcelink.json
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.dll
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/refint/LojaCamisasGames.Domain.dll
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/LojaCamisasGames.Domain.pdb
+/workspaces/teste/LojaCamisasGames/LojaCamisasGames.Domain/obj/Debug/net8.0/ref/LojaCamisasGames.Domain.dll
