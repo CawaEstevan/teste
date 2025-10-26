@@ -37,13 +37,13 @@
 
                         <dt class="col-sm-4 text-end fw-bold">Estoque:</dt>
                         <dd class="col-sm-8">
-                            @if (Model.Estoque > 10)
+                            @if (Model.QuantidadeEstoque > 10)
                             {
-                                <span class="badge bg-success">@Model.Estoque unidades</span>
+                                <span class="badge bg-success">@Model.QuantidadeEstoque unidades</span>
                             }
-                            else if (Model.Estoque > 0)
+                            else if (Model.QuantidadeEstoque > 0)
                             {
-                                <span class="badge bg-warning text-dark">@Model.Estoque unidades</span>
+                                <span class="badge bg-warning text-dark">@Model.QuantidadeEstoque unidades</span>
                             }
                             else
                             {
