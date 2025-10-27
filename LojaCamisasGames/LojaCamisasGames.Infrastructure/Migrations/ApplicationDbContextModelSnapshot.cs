@@ -3,6 +3,7 @@ using System;
 using LojaCamisasGames.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -15,51 +16,57 @@ namespace LojaCamisasGames.Infrastructure.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "8.0.0");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "8.0.0")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("LojaCamisasGames.Domain.Entities.CamisaGame", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cor")
                         .HasMaxLength(50)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<DateTime>("DataCadastro")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Disponivel")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
+                        .HasColumnType("bit")
                         .HasDefaultValue(true);
 
                     b.Property<string>("Jogo")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("NomeTime")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<decimal>("Preco")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("QuantidadeEstoque")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Tamanho")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(10)");
 
                     b.HasKey("Id");
 
@@ -70,7 +77,7 @@ namespace LojaCamisasGames.Infrastructure.Migrations
                         {
                             Id = 1,
                             Cor = "Azul e Branco",
-                            DataCadastro = new DateTime(2025, 10, 26, 23, 41, 33, 440, DateTimeKind.Local).AddTicks(2898),
+                            DataCadastro = new DateTime(2025, 10, 27, 22, 59, 8, 50, DateTimeKind.Local).AddTicks(1202),
                             Disponivel = true,
                             Jogo = "League of Legends",
                             Nome = "Camisa Oficial Team Liquid 2024",
@@ -83,7 +90,7 @@ namespace LojaCamisasGames.Infrastructure.Migrations
                         {
                             Id = 2,
                             Cor = "Preto e Rosa",
-                            DataCadastro = new DateTime(2025, 10, 26, 23, 41, 33, 440, DateTimeKind.Local).AddTicks(2903),
+                            DataCadastro = new DateTime(2025, 10, 27, 22, 59, 8, 50, DateTimeKind.Local).AddTicks(1208),
                             Disponivel = true,
                             Jogo = "CS:GO",
                             Nome = "Camisa FURIA Esports Home",
@@ -96,7 +103,7 @@ namespace LojaCamisasGames.Infrastructure.Migrations
                         {
                             Id = 3,
                             Cor = "Verde e Branco",
-                            DataCadastro = new DateTime(2025, 10, 26, 23, 41, 33, 440, DateTimeKind.Local).AddTicks(2907),
+                            DataCadastro = new DateTime(2025, 10, 27, 22, 59, 8, 50, DateTimeKind.Local).AddTicks(1212),
                             Disponivel = true,
                             Jogo = "Valorant",
                             Nome = "Camisa LOUD Champions",

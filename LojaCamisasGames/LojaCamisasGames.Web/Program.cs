@@ -7,14 +7,18 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do DbContext com SQLite
+// Configuração do DbContext com SQL Server
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(
+        builder.Configuration.GetConnectionString("DefaultConnection"),
+        b => b.MigrationsAssembly("LojaCamisasGames.Infrastructure")
+    ));
 
-// Injeção de Dependências - Repositories
+// Injeção de Dependências (DI) - Inversão de Controle (IoC)
+// Repositories
 builder.Services.AddScoped<ICamisaGameRepository, CamisaGameRepository>();
 
-// Injeção de Dependências - Services
+// Services
 builder.Services.AddScoped<ICamisaGameService, CamisaGameService>();
 
 // Adiciona serviços MVC
